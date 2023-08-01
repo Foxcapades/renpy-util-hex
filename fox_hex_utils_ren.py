@@ -40,11 +40,7 @@ def fox_ubyte_to_hex(byte: int, upper: bool = False) -> str:
     return __seg_to_hex(byte >> 4, upper) + __seg_to_hex(byte & 15, upper)
 
 
-def fox_ubytes_to_hex(
-    bytes: any,
-    prefix: str = '',
-    upper: bool = False
-) -> str:
+def fox_ubytes_to_hex(bytes: any, prefix: str = '', upper: bool = False) -> str:
     """
     UByte Iterable to Hex
 

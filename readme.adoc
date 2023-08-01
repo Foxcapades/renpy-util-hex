@@ -1,4 +1,6 @@
 = Ren'Py Hex Utils
+:toc:
+:toclevels: 3
 
 Provides a collection of utility functions for parsing and rendering hex values
 from/to ints or iterables of bytes.
@@ -59,7 +61,7 @@ The generated hex string.
 
 ==== `fox_hex_to_int(value, prefix?)`
 
-Converst the given hex string into an int value.  Hex string is considered
+Converts the given hex string into an int value.  Hex string is considered
 big-endian.
 
 ===== Arguments
@@ -74,3 +76,72 @@ Prefix that will be stripped off the given value before it is parsed.
 
 `int`::
 The int value parsed from the given hex string.
+
+
+==== `fox_ubytes_to_hex(bytes, prefix?, upper?)`
+
+Takes the given list, tuple, or other iterable and translates the ubyte values
+fetched from that iterable into a singular hex string.
+
+The iterable is expected to return the ubytes in big-endian order.
+
+===== Arguments
+
+`bytes : any`::
+A list, tuple, or other iterable type from which ubyte values will be retrieved.
+
+`prefix : str`::
+Optional prefix that will be prepended to the output hex string.  Common
+examples include `#` and `0x`.
++
+Default = `''`
+
+`upper : bool`::
+Flag indicating whether the returned hex should be uppercase.
++
+Default = `False`
+
+===== Returns
+
+`str`::
+A hex string build for the bytes retrieved from the given list, tuple, or other
+iterable.
+
+
+==== `fox_hex_to_ubytes(value, prefix?)`
+
+Converts the given hex string into a list of ubyte values.
+
+===== Arguments
+
+`value : str`::
+Hex string that will be parsed into a list of ubytes.
+
+`prefix : str`::
+Prefix that will be stripped off of the given value before it is parsed.
+
+===== Returns
+
+`list[int]`::
+A list of ubyte values parsed from the given hex string.
+
+
+==== `fox_ubyte_to_hex(byte, upper?)`
+
+Converts the given ubyte value to a hex character pair in a string.
+
+===== Arguments
+
+`byte : int`::
+UByte value to convert to hex.  This value must be between `0` and `255`
+(inclusive) or an exception will be raised.
+
+`upper : bool`::
+Flag indicating whether the returned hex should be uppercase.
++
+Default = `False`
+
+===== Returns
+
+`str`::
+A 2 character hex string representing the given ubyte value.
