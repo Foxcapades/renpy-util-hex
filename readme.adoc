@@ -1,6 +1,5 @@
 = Ren'Py Hex Utils
 :toc:
-:toclevels: 3
 
 Provides a collection of utility functions for parsing and rendering hex values
 from/to ints or iterables of bytes.
