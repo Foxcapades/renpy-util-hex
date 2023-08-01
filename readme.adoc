@@ -1,0 +1,76 @@
+= Ren'Py Hex Utils
+
+Provides a collection of utility functions for parsing and rendering hex values
+from/to ints or iterables of bytes.
+
+This is intended to be used as part of other projects.
+
+
+== Usage
+
+=== Functions
+
+All functions are prefixed with `fox_` to avoid conflicts with any other
+tooling.
+
+[NOTE]
+--
+In the following function signatures, arguments suffixed with a `?` character
+are optional.
+--
+
+
+==== `fox_int_to_hex(value, min_width?, prefix?, upper?)`
+
+Converts the given int value into a hex string with an optional prefix.
+
+Int values must be greater than or equal to zero.
+
+===== Arguments
+
+`value : int`::
+Positive (or zero) int value to convert to a hex string.
+
+`min_width : int`::
+Optional, positive int value that specifies the minimum width in characters of
+the returned hex string (minus the prefix).  If the int value is not large
+enough to meet this min width, the the hex string will be left-padded with
+zeros.
++
+Default = `2`
+
+`prefix : str`::
+Optional prefix value that will be prepended onto the returned hex value.
+Common examples include `#` and `0x`.
++
+Default = `''`
+
+`upper : bool`::
+Whether the returned hex string should be uppercased.
++
+Default = `False`
+
+
+===== Returns
+
+`str`::
+The generated hex string.
+
+
+==== `fox_hex_to_int(value, prefix?)`
+
+Converst the given hex string into an int value.  Hex string is considered
+big-endian.
+
+===== Arguments
+
+`value : str`::
+Hex string that will be parsed into an int value.
+
+`prefix : str`::
+Prefix that will be stripped off the given value before it is parsed.
+
+===== Returns
+
+`int`::
+The int value parsed from the given hex string.
