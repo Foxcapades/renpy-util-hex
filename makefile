@@ -10,6 +10,10 @@ test:
 
 .PHONY: release
 release:
-	@rm -rf .build
-	@mkdir -p .build/
-	@zip .build/hex-utils-$(VERSION).zip license fox_hex_utils_ren.py requirement_ren.py
+	@rm -rf build
+	@mkdir -p build/
+	@cp license hex-utils-license
+	@zip -r build/hex-utils-$(VERSION).zip \
+		hex-utils-license \
+		game/lib/fxcpds
+	@rm hex-utils-license
