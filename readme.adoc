@@ -142,3 +142,19 @@ Default = `False`
 
 `str`::
 A 2 character hex string representing the given ubyte value.
+
+
+=== `fox_hex_is_valid(hex)`
+
+Tests whether the given value is a hex string.  Assumes that any prefixes have
+been removed before testing.
+
+==== Arguments
+
+`hex : str`::
+Value to test.
+
+==== Returns
+
+`bool`::
+Whether the given value was a valid hex string.

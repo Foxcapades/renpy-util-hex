@@ -1,4 +1,26 @@
-from requirement_ren import fox_enforce_int, fox_require_bool, fox_require_str
+# Copyright 2023 Elizabeth Paige Harper
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the “Software”), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# From https://github.com/Foxcapades/renpy-util-hex
+
+from ..requirement.fox_requirement_ren import fox_enforce_int, fox_require_bool, fox_require_str
 
 """renpy
 init -10 python:
@@ -227,6 +249,23 @@ def fox_hex_to_int(value: str, prefix: str = '') -> int:
         i += 2
 
     return o
+
+
+def fox_hex_is_valid(hex: str) -> bool:
+    """
+    Tests if the given string is a valid hex string.  This assumes any prefixes
+    have been removed before testing.
+
+    :param hex: String to test.
+
+    :returns: Whether the given value was a valid hex string.
+    """
+    if not isinstance(hex, str):
+        return False
+
+    for c in hex:
+        if not __is_hex_digit(c):
+            return False
 
 
 ################################################################################
