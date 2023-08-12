@@ -6,7 +6,7 @@ default:
 
 .PHONY: test
 test:
-	@python3 fox_hex_utils_ren.py && echo "Everything seems to check out, boss!"
+	@python3 fox_hex_utils_test.py && echo "Everything seems to check out, boss!"
 
 .PHONY: release
 release:

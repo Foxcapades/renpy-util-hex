@@ -18,9 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# From https://github.com/Foxcapades/renpy-util-hex
+# From: https://github.com/Foxcapades/renpy-util-hex
+# Version: 1.1.1
 
-from ..requirement.fox_requirement_ren import fox_enforce_int, fox_require_bool, fox_require_str
+from fox_requirement_ren import fox_enforce_int, fox_require_bool, fox_require_str
 
 """renpy
 init -10 python:
@@ -152,7 +153,7 @@ def fox_int_to_hex(
     # If the value is zero, then no need to do any math, just return a string
     # of zeros.
     if value == 0:
-        return prefix + (0 * min_width)
+        return prefix + ('0' * min_width)
 
     out = ''
 
@@ -291,7 +292,6 @@ def __fox_trim_and_validate_hex_string(value: str, prefix: str = '') -> str:
     return value
 
 
-
 def __fox_bytes_to_hex(bytes: any, upper: bool = False) -> str:
     out = ""
 
@@ -331,113 +331,3 @@ def __hex_to_seg(hex: str) -> int:
 def __is_hex_digit(digit: str) -> bool:
     c = ord(digit)
     return 48 <= c <= 57 or 65 <= c <= 70 or 97 <= c <= 102
-
-
-################################################################################
-##
-##   Hex Function Unit Tests
-##
-################################################################################
-
-
-def _fox_ubyte_to_hex_unit_test():
-    tests = [ (0, '00'), (15, '0f'), (240, 'f0'), (255, 'ff') ]
-    for test in tests:
-        val = fox_ubyte_to_hex(test[0])
-        if val != test[1]:
-            raise Exception(f'bug in fox_ubyte_to_hex: expected {test[1]}, got {val}')
-
-_fox_ubyte_to_hex_unit_test()
-
-
-def _fox_ubytes_to_hex_unit_test():
-    input = [ 0, 15, 240, 255 ]
-    value = fox_ubytes_to_hex(input, '0x', True)
-
-    if value != '0x000FF0FF':
-        raise Exception(f'bug in fox_ubytes_to_hex: expected "0x000FF0FF", got {value}')
-
-_fox_ubytes_to_hex_unit_test()
-
-
-def _fox_int_to_hex_unit_test():
-    val = fox_int_to_hex(255)
-    if val != 'ff':
-        raise Exception(f'bug in fox_int_to_hex: expected "ff", got {val}')
-
-    val = fox_int_to_hex(255, 6, '#', True)
-    if val != '#0000FF':
-        raise Exception(f'bug in fox_int_to_hex: expected "#0000FF", got {val}')
-
-    val = fox_int_to_hex(65535)
-    if val != 'ffff':
-        raise Exception(f'bug in fox_int_to_hex: expected "ffff", got {val}')
-
-    val = fox_int_to_hex(4294967295)
-    if val != 'ffffffff':
-        raise Exception(f'bug in fox_int_to_hex: expected "ffffffff", got {val}')
-
-_fox_int_to_hex_unit_test()
-
-
-def _fox_hex_to_ubytes_unit_test():
-    input = 'FFffFF'
-    tests = [ 255, 255, 255 ]
-    value = fox_hex_to_ubytes(input)
-    if len(value) != len(tests):
-        raise Exception(f'bug in fox_hex_to_ubytes: expected byte list length of {len(tests)}, got {len(value)}')
-    for i in range(len(tests)):
-        if value[i] != tests[i]:
-            raise Exception(f'bug in fox_hex_to_ubytes: expected byte list entry {i} to be {tests[i]}, got {value[i]}')
-    input = '#FFf00F00'
-    tests = [ 255, 240, 15, 0 ]
-    value = fox_hex_to_ubytes(input, '#')
-    if len(value) != len(tests):
-        raise Exception(f'bug in fox_hex_to_ubytes: expected byte list length of {len(tests)}, got {len(value)}')
-    for i in range(len(tests)):
-        if value[i] != tests[i]:
-            raise Exception(f'bug in fox_hex_to_ubytes: expected byte list entry {i} to be {tests[i]}, got {value[i]}')
-
-_fox_hex_to_ubytes_unit_test()
-
-
-def _fox_hex_to_int_unit_test():
-    input = '0xFFffFFff'
-    value = fox_hex_to_int(input, '0x')
-    if value != 4294967295:
-        raise Exception(f'bug in fox_hex_to_int: expected 4294967295, got {value}')
-    pass
-
-_fox_hex_to_int_unit_test()
-
-
-def _fox__hex_to_byte_unit_test():
-    val = __hex_to_byte('f', 'f')
-    if val != 255:
-        raise Exception(f'bug in __hex_to_byte: expected 255, got {val}')
-    val = __hex_to_byte('0', 'f')
-    if val != 15:
-        raise Exception(f'bug in __hex_to_byte: expected 15, got {val}')
-    val = __hex_to_byte('0', '0')
-    if val != 0:
-        raise Exception(f'bug in __hex_to_byte: expected 0, got {val}')
-
-_fox__hex_to_byte_unit_test()
-
-
-def _fox__hex_to_seg_unit_test():
-    tests = [
-        ('f', 15), ('e', 14), ('d', 13), ('c', 12), ('b', 11), ('a', 10),
-        ('9', 9), ('8', 8), ('7', 7), ('6', 6), ('5', 5), ('4', 4), ('3', 3),
-        ('2', 2), ('1', 1), ('0', 0)
-    ]
-
-    for test in tests:
-        val = __hex_to_seg(test[0])
-        if val != test[1]:
-            raise Exception(f'bug in __hex_to_seg: expected {test[1]}, got {val}')
-        val = __hex_to_seg(test[0].upper())
-        if val != test[1]:
-            raise Exception(f'bug in __hex_to_seg: expected {test[1]}, got {val}')
-
-_fox__hex_to_seg_unit_test()
