@@ -19,7 +19,7 @@
 # SOFTWARE.
 
 # From: https://github.com/Foxcapades/renpy-util-hex
-# Version: 1.1.1
+# Version: 1.1.2
 
 from fox_requirement_ren import fox_enforce_int, fox_require_bool, fox_require_str
 
