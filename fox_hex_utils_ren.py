@@ -19,9 +19,9 @@
 # SOFTWARE.
 
 # From: https://github.com/Foxcapades/renpy-util-hex
-# Version: 2.0.0
+# Version: 2.1.0
 
-from fox_requirement_ren import fox_enforce_int, fox_require_bool, fox_require_str
+from fox_requirement_ren import FoxRequire
 
 """renpy
 init -10 python:
@@ -50,8 +50,8 @@ class FoxHex(object):
         str
             A 2 character hex string representing the given ubyte value.
         """
-        byte = fox_enforce_int('byte', byte)
-        upper = fox_require_bool('upper', upper)
+        byte = FoxRequire.enforce_int('byte', byte)
+        upper = FoxRequire.require_bool('upper', upper)
 
         if byte > 255 or byte < 0:
             raise Exception('"byte" must be between 0 and 255 (inclusive)')
@@ -86,8 +86,8 @@ class FoxHex(object):
             or iterable.
         """
 
-        fox_require_str('prefix', prefix)
-        fox_require_bool('upper', upper)
+        FoxRequire.require_str('prefix', prefix)
+        FoxRequire.require_bool('upper', upper)
 
         if hasattr(bytes, '__iter__'):
             return prefix + FoxHex.__bytes_to_hex(bytes, upper)
@@ -135,16 +135,16 @@ class FoxHex(object):
             Generated hex string.
         """
 
-        value = fox_enforce_int('value', value)
+        value = FoxRequire.enforce_int('value', value)
         if value < 0:
             raise Exception('negative values not supported')
 
-        min_width = fox_enforce_int('min_width', min_width)
+        min_width = FoxRequire.enforce_int('min_width', min_width)
         if min_width < 0:
             raise Exception('min_width must be greater than or equal to zero')
 
-        fox_require_str('prefix', prefix)
-        fox_require_bool('upper', upper)
+        FoxRequire.require_str('prefix', prefix)
+        FoxRequire.require_bool('upper', upper)
 
         # If the value is zero, then no need to do any math, just return a string
         # of zeros.
@@ -189,8 +189,8 @@ class FoxHex(object):
         list[int]
             A list of ubyte values parsed from the given hex string.
         """
-        fox_require_str('value', value)
-        fox_require_str('prefix', prefix)
+        FoxRequire.require_str('value', value)
+        FoxRequire.require_str('prefix', prefix)
 
         value = FoxHex.__trim_and_validate_hex_string(value, prefix)
 
@@ -228,8 +228,8 @@ class FoxHex(object):
             The int value parsed from the given hex string.
         """
 
-        fox_require_str('value', value)
-        fox_require_str('prefix', prefix)
+        FoxRequire.require_str('value', value)
+        FoxRequire.require_str('prefix', prefix)
 
         value = FoxHex.__trim_and_validate_hex_string(value, prefix)
 
