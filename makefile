@@ -15,5 +15,6 @@ release:
 	@cp license hex-utils-license
 	@zip -r build/hex-utils-$(VERSION).zip \
 		hex-utils-license \
-		game/lib/fxcpds
+		fox_hex_utils_ren.py \
+		fox_requirement_ren.py
 	@rm hex-utils-license
